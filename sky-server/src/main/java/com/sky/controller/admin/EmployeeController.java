@@ -84,6 +84,7 @@ public class EmployeeController {
     public Result save(@RequestBody EmployeeDTO employeeDTO) {
         // {} 是占位符，程序运行时会动态把后面的employeeDTO参数放进去
         log.info("新增员工：{}", employeeDTO);
+        System.out.println("当前线程的id："+Thread.currentThread().getId());
         employeeService.save(employeeDTO);
         return Result.success();
     }
