@@ -24,6 +24,7 @@ public class DishDTO implements Serializable {
     //0 停售 1 起售
     private Integer status;
     //口味
+    // 通过集合的方法来封装所有的口味
     private List<DishFlavor> flavors = new ArrayList<>();
 
 }
