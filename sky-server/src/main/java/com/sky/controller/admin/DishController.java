@@ -70,6 +70,11 @@ public class DishController {
     }
 
 
+    /**
+     * 根据id查询菜品
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @ApiOperation("根据id来查询菜品")
     public Result<DishVO> getById(@PathVariable Long id) {
@@ -79,6 +84,11 @@ public class DishController {
     }
 
 
+    /**
+     * 修改菜品信息
+     * @param dishDTO
+     * @return
+     */
     // 新增和修改的数据格式是一样的 用DishDTO来接收
     @PutMapping
     @ApiOperation("修改菜品信息")
@@ -87,4 +97,32 @@ public class DishController {
         dishService.updateWithFlavor(dishDTO);
         return Result.success();
     }
+
+
+    /**
+     * 根据分类id来查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id来查询菜品")
+    public Result<List<Dish>> list(Long categoryId) {
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
+    }
+
+
+    /**
+     * 菜品起售停售
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("菜品起售停售")
+    public Result<String> startOrStop(@PathVariable Integer status, Long id){
+        dishService.startOrStop(status,id);
+        return Result.success();
+    }
+
 }
