@@ -1,0 +1,43 @@
+package com.sky.controller.admin;
+
+import com.sky.result.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
+
+@RestController("adminShopController")
+@RequestMapping("/admin/shop")
+@Api(tags = "店铺相关接口")
+@Slf4j
+public class ShopController {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+    /**
+     * 设置店铺的营业状态
+     * @param status
+     * @return
+     */
+    // /{status} 代表是路径参数
+    @PutMapping("/{status}")
+    @ApiOperation("设置店铺的营业状态")
+    public Result setStatus(@PathVariable Integer status) {
+        log.info("设置店铺的营业状态:{}", status == 1 ? "营业中" : "已打烊");
+        redisTemplate.opsForValue().set("SHOP_STATUS", status);
+        return Result.success();
+    }
+
+    // status 代表的是普通的字符串
+    @GetMapping("/status")
+    @ApiOperation("查询得到店铺的营业状态")
+    public Result<Integer> getStatus() {
+        Integer shopStatus = (Integer)redisTemplate.opsForValue().get("SHOP_STATUS");
+        log.info("查询得到店铺的营业状态:{}", shopStatus == 1 ? "营业中" : "已打烊");
+        return Result.success(shopStatus);
+    }
+
+}
