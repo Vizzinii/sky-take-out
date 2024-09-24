@@ -41,6 +41,9 @@ sky:
     admin-ttl: 720000000000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    user-secret-key: itheima
+    user-ttl: 7200000000000
+    user-token-name: authentication
   alioss:
     # 类里的属性多采用驼峰命名，而配置文件中多用下划线
     # 会自动识别并转换的
@@ -48,3 +51,6 @@ sky:
     access-key-id: ${sky.alioss.access-key-id}
     access-key-secret: ${sky.alioss.access-key-secret}
     bucket-name: ${sky.alioss.bucket-name}
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
