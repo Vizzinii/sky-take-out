@@ -14,7 +14,7 @@ public interface UserMapper {
      * @param openId
      * @return
      */
-    @Select("select * from sky_take_out.user where openid = #{openid}")
+    @Select("select * from user where openid = #{openid}")
     User getUserByOpenId(String openId);
 
     /**
