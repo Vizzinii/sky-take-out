@@ -8,6 +8,7 @@ import com.sky.entity.ShoppingCart;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.mapper.ShoppingCartMapper;
+import com.sky.result.Result;
 import com.sky.service.ShoppingCartService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -74,5 +75,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCartMapper.insert(shoppingCart);
         }
 
+    }
+
+
+    /**
+     * 查看购物车内的商品
+     * @return
+     */
+    @Override
+    public List<ShoppingCart> showShoppingCart() {
+        // 得到当前的用户id
+        Long userId = BaseContext.getCurrentId();
+
+        // 根据当前的用户id得到当前用户购物车内的数据
+        // 首先构造一个 ShoppingCart 对象
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .id(userId)
+                .build();
+
+        // 按照用户id来查询用户的购物车数据
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        return list;
     }
 }
