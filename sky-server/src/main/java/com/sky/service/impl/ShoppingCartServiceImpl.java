@@ -33,6 +33,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 添加购物车方法
+     *
      * @param shoppingCartDTO
      */
     @Override
@@ -48,22 +49,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
         // 如果购物车内已经有了当前商品，那么接下来的操作是update ，将数量+1即可
-        if(list != null && list.size() > 0) {
+        if (list != null && list.size() > 0) {
             ShoppingCart cart = list.get(0);
             cart.setNumber(cart.getNumber() + 1);
             shoppingCartMapper.updateNumberById(cart);
 
-        }else{
+        } else {
             // 判断这个新增的是菜品还是套餐，然后查对应的菜品表or套餐表，从而得到新增的购物车栏目的数据
             Long dishId = shoppingCartDTO.getDishId();
             Long setmealId = shoppingCartDTO.getSetmealId();
-            if(dishId != null && setmealId == null) {
+            if (dishId != null && setmealId == null) {
                 // 本次添加到购物车的是dish菜品
                 Dish dish = dishMapper.getById(dishId);
                 shoppingCart.setName(dish.getName());
                 shoppingCart.setImage(dish.getImage());
                 shoppingCart.setAmount(dish.getPrice());
-            }else{
+            } else {
                 // 本次添加到购物车的是setmeal套餐
                 Setmeal setmeal = setmealMapper.getById(setmealId);
                 shoppingCart.setName(setmeal.getName());
@@ -80,6 +81,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 查看购物车内的商品
+     *
      * @return
      */
     @Override
@@ -96,5 +98,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         // 按照用户id来查询用户的购物车数据
         List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
         return list;
+    }
+
+
+    /**
+     * 清空购物车
+     */
+    public void cleanShoppingCart() {
+        shoppingCartMapper.deleteByUserId(BaseContext.getCurrentId());
     }
 }
