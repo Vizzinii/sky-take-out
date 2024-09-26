@@ -40,7 +40,7 @@ public class OrderController {
 
 
     /**
-     * 历史订单查询
+     * 用户查询历史订单
      * @param page
      * @param pageSize
      * @param status  订单状态  1待付款 2待接单 3已接单 4派送中 5已完成 6已取消
@@ -55,7 +55,7 @@ public class OrderController {
 
 
     /**
-     * 查询订单详情
+     * 用户查询订单详情
      * @param id
      * @return
      */
@@ -68,7 +68,7 @@ public class OrderController {
 
 
     /**
-     * 订单支付
+     * 用户支付订单
      *
      * @param ordersPaymentDTO
      * @return
@@ -84,5 +84,32 @@ public class OrderController {
         orderService.paySuccess(orderNumber);
 
         return Result.success(orderPaymentVO);
+    }
+
+
+    /**
+     * 用户取消订单
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @PutMapping("/cancel/{id}")
+    @ApiOperation("取消订单")
+    public Result cancel(@PathVariable("id") Long id) throws Exception{
+        orderService.userCancelById(id);
+        return Result.success();
+    }
+
+
+    /**
+     * 用户再来一单
+     * @param id
+     * @return
+     */
+    @PostMapping("/repetition/{id}")
+    @ApiOperation("用户对以前的订单再来一单")
+    public Result repetition(@PathVariable Long id){
+        orderService.repetition(id);
+        return Result.success();
     }
 }
