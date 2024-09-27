@@ -46,4 +46,13 @@ public interface OrderMapper {
      */
     @Select("select * from orders where id=#{id}")
     Orders getById(Long id);
+
+
+    /**
+     * 商户端显示各个状态的订单数量
+     * @param toBeConfirmed
+     * @return
+     */
+    @Select("select count(id) from orders where status = #{status}")
+    Integer countStatus(Integer toBeConfirmed);
 }
