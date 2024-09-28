@@ -6,6 +6,8 @@ import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 @Mapper
 public interface OrderMapper {
 
@@ -55,4 +57,12 @@ public interface OrderMapper {
      */
     @Select("select count(id) from orders where status = #{status}")
     Integer countStatus(Integer toBeConfirmed);
+
+
+    /**
+     * 根据动态条件来统计营业额数据
+     * @param map
+     * @return
+     */
+    Double sumByMap(Map map);
 }
