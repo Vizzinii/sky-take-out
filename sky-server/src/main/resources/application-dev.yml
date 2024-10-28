@@ -8,8 +8,8 @@ sky:
     password: 893640
   alioss:
     endpoint: oss-cn-guangzhou.aliyuncs.com
-    access-key-id: LTAI5tAvGeKFv9WrfTEV9Y26
-    access-key-secret: Xd59ljKqLunuyviI10HqwL0hvsA911
+    access-key-id:
+    access-key-secret:
     bucket-name: vizzini-sky-takeout
   redis:
     host: localhost
